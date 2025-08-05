@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, request, jsonify, render_template
 import joblib
 from preprocess import clean_text, vectorize_texts
@@ -7,10 +6,10 @@ import os
 app = Flask(__name__)
 model = joblib.load('model.joblib')
 
-# --- Root endpoint (status check) ---
+# --- Root endpoint now shows the HTML UI ---
 @app.route('/', methods=['GET'])
 def home():
-    return "📰 Fake News Detection API is running!"
+    return render_template('index.html')
 
 # --- JSON API endpoint ---
 @app.route('/predict', methods=['POST'])
@@ -24,11 +23,6 @@ def predict():
     prediction = model.predict(vector)[0]
     result = 'REAL' if prediction == 1 else 'FAKE'
     return jsonify({'prediction': result})
-
-# --- HTML UI form route ---
-@app.route('/form', methods=['GET'])
-def form():
-    return render_template('index.html')
 
 # --- Handle form submission ---
 @app.route('/predict-form', methods=['POST'])
