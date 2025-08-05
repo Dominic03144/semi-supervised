@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake News Detector</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #1e1e2f, #2e2e3f);
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #ffd700;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background: #2d2d3a;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 600px;
+      box-sizing: border-box;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #666;
+      background-color: #1e1e2f;
+      color: #fff;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #ffd700;
+      color: #1e1e2f;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e6c200;
+    }
+
+    .result {
+      margin-top: 25px;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 15px;
+      background-color: #3b3b4d;
+      border-left: 5px solid #ffd700;
+      border-radius: 8px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      form {
+        padding: 20px;
+      }
+      textarea {
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>📰 Fake News Detector</h1>
+  <form method="POST" action="/predict-form">
+    <textarea name="text" placeholder="Paste your news article here..." required>{{ original or '' }}</textarea>
+    <br>
+    <button type="submit">Predict</button>
+  </form>
+
+  {% if prediction %}
+    <div class="result">
+      Result: {{ prediction }}
+    </div>
+  {% endif %}
+</body>
+</html>
